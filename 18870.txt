@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Coord {
+public:
+	int x;
+	int index;
+	Coord(int index, int x) {
+		this->index = index;
+		this->x = x;
+	}
+	bool operator <(Coord& c) {
+		return this->x < c.x;
+	}
+};
+
+vector<Coord> v;
+
+bool compare(Coord c1, Coord c2) {
+	return c1.index < c2.index;
+}
+
+int main() {
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		int x;
+		cin >> x;
+		Coord c(i, x);
+		v.push_back(c);
+	}
+
+	sort(v.begin(), v.end());
+	int j = 0;
+	int temp = 0;
+	temp = v[0].x;
+	v[0].x = 0;
+	j++;
+	for (int i = 1; i < n; i++) {
+		if (v[i].x == temp) {
+			--j;
+			v[i].x = j;
+		}
+		else {
+			temp = v[i].x;
+			v[i].x = j;
+		}
+		j++;
+	}
+	sort(v.begin(), v.end(), compare);
+	for (int i = 0; i < n; i++) {
+		cout << v[i].x << " ";
+	}
+
+}
