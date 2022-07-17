@@ -1,0 +1,69 @@
+#include <iostream>
+#include <iomanip>
+#include <algorithm>
+using namespace std;
+#include <vector>
+
+vector<int> v;
+
+int a[8001];
+int b[8001];
+int c[500000];
+
+
+int main() {
+	int n;
+	cin >> n;
+	int sum = 0;
+	int min = 4000;
+	int max = -4000;
+	int k;
+	for (int i = 0; i < n; i++) {
+		cin >> k;
+		c[i] = k;
+		sum += k;
+		if (min > k)
+			min = k;
+		if (max < k)
+			max = k;
+		a[k + 4000]++;
+		v.push_back(k);
+	}
+
+
+
+	int freq = 0;
+	int count = 0;
+	int index = 0;
+	int res = 0;
+	int p = 0;
+
+	for (int i = 0; i < 8001; i++) {
+		if (a[i] > freq)
+			freq = a[i];
+	}
+
+	for (int i = 0; i < 8001; i++) {
+
+		if (a[i] == freq) {
+			freq = a[i];
+			b[p] = i - 4000;
+			p++;
+			count++;
+
+		}
+	}
+
+
+	if (count == 1)res = b[0];
+	else res = b[1];
+
+	sort(c, c + n);
+	if ((double)sum / n >= -0.5 && (double)sum / n < 0) cout << 0 << '\n';
+	else {
+		cout << fixed << setprecision(0) << (double)sum / n << '\n';
+	}
+	cout << c[n / 2] << '\n';
+	cout << res << '\n';
+	cout << max - min;
+}
