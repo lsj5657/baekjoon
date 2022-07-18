@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int d[1000];
+
+int Tile(int n) {
+	if (n == 1)return 1;
+	if (n == 2) return 3;
+	if (d[n]) return d[n];
+	else {
+		return d[n] = (Tile(n - 1) + 2*Tile(n - 2)) % 10007;
+	}
+}
+
+int main() {
+	int n;
+	cin >> n;
+	cout << Tile(n);
+}
